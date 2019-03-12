@@ -33,6 +33,5 @@ public class FindLauncher {
         Find find = new Find(directory, subDirectory);
         find.find(fileName);
         System.out.println(fileName);
-
     }
 }
