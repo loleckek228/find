@@ -1,4 +1,3 @@
-
 import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
@@ -30,8 +29,8 @@ public class FindLauncher {
             return;
         }
 
-        Find find = new Find(directory, subDirectory);
-        find.find(fileName);
-        System.out.println(fileName);
+        Find file = new Find();
+        file.search(directory, fileName, subDirectory);
+
     }
 }

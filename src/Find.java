@@ -1,44 +1,37 @@
 import java.io.File;
 
 public class Find {
-    private String directory;
-    private boolean subDirectory;
 
-    public Find(String fileName, Boolean subDirectory) {
-        this.directory = fileName;
-        this.subDirectory = subDirectory;
+    public Find() {
     }
 
-    private File search(String currentDirectory, String fileName) {
-        String path = currentDirectory + "/" + fileName;
+    public File search(String currentDirectory, String fileName, boolean subDirectory) {
+
+        String pathToFile = currentDirectory + "/" + fileName;
         File file = new File(currentDirectory);
-        if (subDirectory) {
-            String[] directories = file.list();
-            if (directories != null) {
-                for (int i = 0; i < directories.length; i++) {
-                    if (directories[i].equals(fileName))
-                        path = directory;
-                    else
-                        path = directory + "/" + directories[i];
-                    if (new File(path + "/" + fileName).isFile())
-                        return new File(path + "/" + fileName);
-                    if (new File(path, fileName) != null) {
-                        path = search(path, fileName).toString();
-                        if (new File(path).isFile())
-                            return new File(path);
+        if (file.isDirectory()) {
+            String [] directories = file.list();
+            for (String item : directories) {
+                if (subDirectory) {
+                    if (item.equals(fileName)) {
+                        pathToFile = currentDirectory;
+                    }
+                    else {
+                        pathToFile = currentDirectory + "/" + item;
+                    }
+                    if (new File(pathToFile + "/" + fileName).isFile()) {
+                        return new File(pathToFile + "/" + fileName);
+                    }
+                    pathToFile = search(pathToFile, fileName, subDirectory).toString();
+                } else {
+                    if (new File(pathToFile).isFile()) {
+                        return new File(pathToFile);
                     }
                 }
             }
         }
-        else {
-            if (new File(path).isFile())
-                return new File(path);
-        }
-        return null;
-    }
-
-    public File find(String fileName) {
-        File result = search(directory, fileName);
-        return result;
+        return new File(pathToFile);
     }
 }
+
+
