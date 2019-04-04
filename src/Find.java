@@ -1,14 +1,15 @@
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Find {
 
-    ArrayList<String> pathToFile = new ArrayList<>();
+    private ArrayList<File> pathToFile = new ArrayList<>();
 
-    public Find() {
-    }
 
-    public File search(File currentDirectory, String fileName, boolean subDirectory) {
+
+    public List<File> search(File currentDirectory, String fileName, boolean subDirectory) {
+
         if (currentDirectory.isDirectory()) {
             File[] directories = currentDirectory.listFiles();
             for (File item : directories) {
@@ -16,12 +17,12 @@ public class Find {
                     search(item, fileName, subDirectory);
                 else {
                     if (item.getName().equals(fileName)) {
-                        pathToFile.add(item.getPath());
+                        pathToFile.add(item);
                     }
                 }
             }
         }
-        return new File(pathToFile.toString());
+        return pathToFile;
     }
 
 
