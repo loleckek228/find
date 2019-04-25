@@ -4,8 +4,7 @@ import java.util.List;
 
 public class Find {
 
-    private ArrayList<File> pathToFile = new ArrayList<>();
-
+    public ArrayList<File> pathToFile = new ArrayList<>();
 
 
     public List<File> search(File currentDirectory, String fileName, boolean subDirectory) {
@@ -24,8 +23,6 @@ public class Find {
         }
         return pathToFile;
     }
-
-
 }
 
 

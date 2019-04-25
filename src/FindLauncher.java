@@ -2,11 +2,12 @@ import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.Option;
+
 import java.io.File;
 
 public class FindLauncher {
 
-    @Option(name ="-r", metaVar = "SubDirect", usage = "Find Subdirectory" )
+    @Option(name = "-r", metaVar = "SubDirect", usage = "Find Subdirectory")
     private boolean subDirectory;
 
     @Option(name = "-d", metaVar = "Directory", usage = "Path to the File")
@@ -19,7 +20,7 @@ public class FindLauncher {
         new FindLauncher().launch(args);
     }
 
-    private void launch(String [] args)  {
+    private void launch(String[] args) {
         CmdLineParser parser = new CmdLineParser(this);
         try {
             parser.parseArgument(args);
@@ -30,8 +31,14 @@ public class FindLauncher {
             return;
         }
 
-        Find file = new Find();
-        System.out.println(file.search(new File(directory), fileName, subDirectory));
 
+        if (args.length <= 1 || args.length > 4) {
+            System.out.println("Command Line: [-r] [-d directory] filename.txt");
+        } else {
+            Find file = new Find();
+            file.search(new File(directory), fileName, subDirectory);
+            file.pathToFile.forEach(System.out::println);
+            file.pathToFile.clear();
+        }
     }
 }
