@@ -31,14 +31,11 @@ public class FindLauncher {
             return;
         }
 
-
-        if (args.length <= 1 || args.length > 4) {
+        if (args.length <= 2 || args.length > 4) {
             System.out.println("Command Line: [-r] [-d directory] filename.txt");
         } else {
-            Find file = new Find();
-            file.search(new File(directory), fileName, subDirectory);
-            file.pathToFile.forEach(System.out::println);
-            file.pathToFile.clear();
+            Find file = new Find(new File(directory), subDirectory);
+            file.find(fileName).forEach(System.out::println);
         }
     }
 }

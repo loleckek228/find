@@ -4,24 +4,37 @@ import java.util.List;
 
 public class Find {
 
-    public ArrayList<File> pathToFile = new ArrayList<>();
+    private File directory;
+    private boolean subDirectory;
 
+    public Find(File directory, boolean subDirectory) {
+        this.directory = directory;
+        this.subDirectory = subDirectory;
+    }
 
-    public List<File> search(File currentDirectory, String fileName, boolean subDirectory) {
+    private void search(File currentDirectory, String fileName, boolean subDirectory, ArrayList<File> arrayList) {
 
         if (currentDirectory.isDirectory()) {
-            File[] directories = currentDirectory.listFiles();
-            for (File item : directories) {
+            for (File item : currentDirectory.listFiles()) {
                 if (subDirectory && item.isDirectory())
-                    search(item, fileName, subDirectory);
+                    search(item, fileName, subDirectory, arrayList);
                 else {
                     if (item.getName().equals(fileName)) {
-                        pathToFile.add(item);
+                        arrayList.add(item);
                     }
                 }
             }
         }
-        return pathToFile;
+    }
+
+    public List<File> find(String fileName) {
+
+        ArrayList<File> result = new ArrayList<>();
+
+        search(directory, fileName, subDirectory, result);
+
+        return result;
+
     }
 }
 
