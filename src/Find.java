@@ -12,7 +12,7 @@ public class Find {
         this.subDirectory = subDirectory;
     }
 
-    private void search(File currentDirectory, String fileName, boolean subDirectory, ArrayList<File> arrayList) {
+    private static void search(File currentDirectory, String fileName, boolean subDirectory, ArrayList<File> arrayList) {
 
         if (currentDirectory.isDirectory()) {
             for (File item : currentDirectory.listFiles()) {
@@ -34,7 +34,6 @@ public class Find {
         search(directory, fileName, subDirectory, result);
 
         return result;
-
     }
 }
 
